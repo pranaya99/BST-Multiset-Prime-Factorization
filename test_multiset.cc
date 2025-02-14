@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-
 #include "multiset.h"
 
 TEST(Multiset, Empty) {
@@ -8,7 +7,7 @@ TEST(Multiset, Empty) {
   /* Should be fully empty */
   EXPECT_EQ(mset.Empty(), true);
   EXPECT_EQ(mset.Size(), 0);
-  EXPECT_THROW(mset.Count(42), std::exception);
+  EXPECT_THROW(mset.Count(42), std::runtime_error);
 }
 
 TEST(Multiset, OneKey) {
