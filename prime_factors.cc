@@ -38,14 +38,12 @@ void printMax(const std::map<int, int>& primeFactors) {
   }
 }
 
-
 void printMin(const std::map<int, int>& primeFactors) {
   if (!primeFactors.empty()) {
     auto minFactor = *primeFactors.begin();
     std::cout << minFactor.first << " (x" << minFactor.second << ")" << std::endl;
   }
 }
-
 
 void printNear(const std::map<int, int>& primeFactors, int target, const std::string& mode) {
   auto it = primeFactors.lower_bound(target);
@@ -57,23 +55,22 @@ void printNear(const std::map<int, int>& primeFactors, int target, const std::st
       std::cout << "Prime factor not found" << std::endl;
     }
   } else if (mode == "+") {
-  if (it == primeFactors.end()) {
-    std::cout << "No match" << std::endl;
-  } else {
-    if (it->first == target) {
-      ++it;
-    }
-    if (it != primeFactors.end()) {
-      std::cout << it->first << " (x" << it->second << ")" << std::endl;
-    } else {
+    if (it == primeFactors.end()) {
       std::cout << "No match" << std::endl;
+    } else {
+      if (it->first == target) {
+        ++it;
+      }
+      if (it != primeFactors.end()) {
+        std::cout << it->first << " (x" << it->second << ")" << std::endl;
+      } else {
+        std::cout << "No match" << std::endl;
+      }
     }
   }
 }
 
-
 int main(int argc, char* argv[]) {
-
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0] << " <number> <command> [<args>]" << std::endl;
     return 1;
@@ -116,5 +113,4 @@ int main(int argc, char* argv[]) {
   }
 
   return 0;
-}
 }
