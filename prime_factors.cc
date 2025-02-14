@@ -45,21 +45,23 @@ void printMin(const std::map<int, int>& primeFactors) {
   }
 }
 
-void printNear(const std::map<int, int>& primeFactors, int target, const std::string& mode) {
+vvoid printNear(const std::map<int, int>& primeFactors, int target, const std::string& mode) {
   auto it = primeFactors.lower_bound(target);
-  
+
   if (mode == "") {
+    // Exact match
     if (it != primeFactors.end() && it->first == target) {
       std::cout << it->first << " (x" << it->second << ")" << std::endl;
     } else {
       std::cout << "Prime factor not found" << std::endl;
     }
   } else if (mode == "+") {
+    // Next larger factor
     if (it == primeFactors.end()) {
       std::cout << "No match" << std::endl;
     } else {
       if (it->first == target) {
-        ++it;
+        ++it;  // Move to the next factor
       }
       if (it != primeFactors.end()) {
         std::cout << it->first << " (x" << it->second << ")" << std::endl;
@@ -67,8 +69,17 @@ void printNear(const std::map<int, int>& primeFactors, int target, const std::st
         std::cout << "No match" << std::endl;
       }
     }
+  } else if (mode == "-") {
+    // Previous smaller factor
+    if (it == primeFactors.begin()) {
+      std::cout << "No match" << std::endl;
+    } else {
+      --it;  // Move to the previous factor
+      std::cout << it->first << " (x" << it->second << ")" << std::endl;
+    }
   }
 }
+
 
 int main(int argc, char* argv[]) {
   if (argc < 3) {
