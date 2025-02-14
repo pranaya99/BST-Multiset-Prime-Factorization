@@ -20,57 +20,73 @@ std::map<int, int> getPrimeFactors(int n) {
 }
 
 void printAll(const std::map<int, int>& primeFactors) {
-  for (const auto& factor : primeFactors) {
-    std::cout << factor.first << " " << factor.second << std::endl;
+  for (auto it = primeFactors.begin(); it != primeFactors.end(); ++it) {
+    // For the last factor, don't add a comma
+    if (std::next(it) != primeFactors.end()) {
+      std::cout << it->first << " (x" << it->second << "), ";
+    } else {
+      std::cout << it->first << " (x" << it->second << ")";
+    }
   }
+  std::cout << std::endl;
 }
 
 void printMax(const std::map<int, int>& primeFactors) {
   if (!primeFactors.empty()) {
     auto maxFactor = *primeFactors.rbegin();
-    std::cout << maxFactor.first << " " << maxFactor.second << std::endl;
+    std::cout << maxFactor.first << " (x" << maxFactor.second << ")" << std::endl;
   }
 }
+
 
 void printMin(const std::map<int, int>& primeFactors) {
   if (!primeFactors.empty()) {
     auto minFactor = *primeFactors.begin();
-    std::cout << minFactor.first << " " << minFactor.second << std::endl;
+    std::cout << minFactor.first << " (x" << minFactor.second << ")" << std::endl;
   }
 }
+
 
 void printNear(const std::map<int, int>& primeFactors, int target, const std::string& mode) {
   auto it = primeFactors.lower_bound(target);
   
   if (mode == "") {
     if (it != primeFactors.end() && it->first == target) {
-      std::cout << it->first << " " << it->second << std::endl;
+      std::cout << it->first << " (x" << it->second << ")" << std::endl;
     } else {
       std::cout << "Prime factor not found" << std::endl;
     }
   } else if (mode == "+") {
     if (it != primeFactors.end() && it->first > target) {
-      std::cout << it->first << " " << it->second << std::endl;
+      std::cout << it->first << " (x" << it->second << ")" << std::endl;
     } else {
-      std::cout << "No larger prime factor" << std::endl;
+      std::cout << "No match" << std::endl;
     }
   } else if (mode == "-") {
     if (it != primeFactors.begin()) {
       --it;
-      std::cout << it->first << " " << it->second << std::endl;
+      std::cout << it->first << " (x" << it->second << ")" << std::endl;
     } else {
-      std::cout << "No smaller prime factor" << std::endl;
+      std::cout << "No match" << std::endl;
     }
   }
 }
 
+
 int main(int argc, char* argv[]) {
   if (argc < 3) {
-    std::cerr << "Usage: " << argv[0] << " <number> <command> [near_arg]" << std::endl;
+    std::cerr << "Usage: " << argv[0] << " <number> <command> [<args>]" << std::endl;
     return 1;
   }
 
   int number = std::atoi(argv[1]);
+  
+  // Validate the number
+  if (number <= 1) {
+    std::cerr << "Invalid number" << std::endl;
+    return 1;
+  }
+
   std::string command = argv[2];
   std::map<int, int> primeFactors = getPrimeFactors(number);
 
@@ -82,7 +98,7 @@ int main(int argc, char* argv[]) {
     printMin(primeFactors);
   } else if (command == "near") {
     if (argc < 4) {
-      std::cerr << "Usage for 'near': " << argv[0] << " <number> near <prime/+/->" << std::endl;
+      std::cerr << "Command 'near' expects another argument: [+/-]prime" << std::endl;
       return 1;
     }
 
@@ -95,7 +111,8 @@ int main(int argc, char* argv[]) {
       printNear(primeFactors, std::atoi(nearArg.c_str()), "");
     }
   } else {
-    std::cerr << "Invalid command: " << command << std::endl;
+    std::cerr << "Command '" << command << "' is invalid" << std::endl;
+    std::cerr << "Possible commands are: all|min|max|near" << std::endl;
   }
 
   return 0;
