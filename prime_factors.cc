@@ -73,6 +73,7 @@ void printNear(const std::map<int, int>& primeFactors, int target, const std::st
 
 
 int main(int argc, char* argv[]) {
+
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0] << " <number> <command> [<args>]" << std::endl;
     return 1;
@@ -115,4 +116,5 @@ int main(int argc, char* argv[]) {
   }
 
   return 0;
+}
 }
