@@ -45,7 +45,7 @@ void printMin(const std::map<int, int>& primeFactors) {
   }
 }
 
-vvoid printNear(const std::map<int, int>& primeFactors, int target, const std::string& mode) {
+void printNear(const std::map<int, int>& primeFactors, int target, const std::string& mode) {
   auto it = primeFactors.lower_bound(target);
 
   if (mode == "") {
