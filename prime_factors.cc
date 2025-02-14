@@ -21,11 +21,11 @@ std::map<int, int> getPrimeFactors(int n) {
 
 void printAll(const std::map<int, int>& primeFactors) {
   for (auto it = primeFactors.begin(); it != primeFactors.end(); ++it) {
-    // For the last factor, don't add a comma
+    std::cout << it->first << " (x" << it->second << ")";
     if (std::next(it) != primeFactors.end()) {
-      std::cout << it->first << " (x" << it->second << "), ";
+      std::cout << ", ";
     } else {
-      std::cout << it->first << " (x" << it->second << ")";
+      std::cout << ",";
     }
   }
   std::cout << std::endl;
@@ -57,14 +57,13 @@ void printNear(const std::map<int, int>& primeFactors, int target, const std::st
       std::cout << "Prime factor not found" << std::endl;
     }
   } else if (mode == "+") {
-    if (it != primeFactors.end() && it->first > target) {
-      std::cout << it->first << " (x" << it->second << ")" << std::endl;
-    } else {
-      std::cout << "No match" << std::endl;
+  if (it == primeFactors.end()) {
+    std::cout << "No match" << std::endl;
+  } else {
+    if (it->first == target) {
+      ++it;
     }
-  } else if (mode == "-") {
-    if (it != primeFactors.begin()) {
-      --it;
+    if (it != primeFactors.end()) {
       std::cout << it->first << " (x" << it->second << ")" << std::endl;
     } else {
       std::cout << "No match" << std::endl;
