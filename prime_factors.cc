@@ -88,7 +88,6 @@ int main(int argc, char* argv[]) {
   }
 
   int number = std::atoi(argv[1]);
-  
   // Validate the number
   if (number <= 1) {
     std::cerr << "Invalid number" << std::endl;

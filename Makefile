@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Werror -std=c++14
+CXXFLAGS = -Wall -Werror -std=c++11
 GTEST_DIR = /opt/homebrew
 
 all: test_multiset prime_factors

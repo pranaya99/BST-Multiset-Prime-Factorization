@@ -6,11 +6,11 @@
 #include <iostream>
 #include <memory>
 #include <exception>
+#include <utility>  // Required for std::move
 
-// C++11 compatible make_unique
-template<typename T, typename... Args>
+template <typename T, typename... Args>
 std::unique_ptr<T> make_unique(Args&&... args) {
-    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+  return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
 template <typename K>
@@ -66,7 +66,7 @@ class Multiset {
     std::unique_ptr<Node> left;
     std::unique_ptr<Node> right;
 
-    Node(const K& k) : key(k), count(1), left(nullptr), right(nullptr) {}
+    explicit Node(const K& k) : key(k), count(1), left(nullptr), right(nullptr) {}
   };
 
   std::unique_ptr<Node> root_;
