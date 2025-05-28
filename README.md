@@ -1,6 +1,5 @@
 # BST Multiset & Prime Factorization
 
-A C++ implementation of a multiset container using Binary Search Trees, with a practical application for prime number factorization and analysis.
 
 **Academic Project**: ECS 36C - Data Structures & Algorithms  
 **Instructor**: Prof. Joël Porquet-Lupine  
